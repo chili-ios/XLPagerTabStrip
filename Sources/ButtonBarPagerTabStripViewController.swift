@@ -50,7 +50,7 @@ public struct ButtonBarPagerTabStripSettings {
 
         public var selectedBarBackgroundColor = UIColor.blackColor()
         public var selectedBarHeight: CGFloat = 5
-        
+
         public var buttonBarItemBackgroundColor: UIColor?
         public var buttonBarItemFont = UIFont.systemFontOfSize(18)
         public var buttonBarItemLeftRightMargin: CGFloat = 8
@@ -59,6 +59,8 @@ public struct ButtonBarPagerTabStripSettings {
        
         // only used if button bar is created programaticaly and not using storyboards or nib files
         public var buttonBarHeight: CGFloat?
+
+        public var enableInteritemSpacing: Bool?
     }
     
     public var style = Style()
@@ -126,7 +128,9 @@ public class ButtonBarPagerTabStripViewController: PagerTabStripViewController, 
         buttonBarView.scrollsToTop = false
         let flowLayout = buttonBarView.collectionViewLayout as! UICollectionViewFlowLayout
         flowLayout.scrollDirection = .Horizontal
-        flowLayout.minimumInteritemSpacing = 0
+        if settings.style.enableInteritemSpacing != true {
+            flowLayout.minimumInteritemSpacing = 0
+        }
         flowLayout.minimumLineSpacing = settings.style.buttonBarMinimumLineSpacing ?? flowLayout.minimumLineSpacing
         let sectionInset = flowLayout.sectionInset
         flowLayout.sectionInset = UIEdgeInsetsMake(sectionInset.top, self.settings.style.buttonBarLeftContentInset ?? sectionInset.left, sectionInset.bottom, self.settings.style.buttonBarRightContentInset ?? sectionInset.right)
